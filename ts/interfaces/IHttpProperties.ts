@@ -1,6 +1,6 @@
 export default interface IHttpProperties {
   body?: BodyInit;
-  endpoint: string;
+  baseUrl: string;
   headers: HeadersInit,
-  path: string,
+  path?: string,
 }

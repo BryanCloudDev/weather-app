@@ -1,9 +1,9 @@
 class HttpService {
     _onError = false;
-    async makeHttpCall({ body, endpoint, headers, path }, method = "GET") {
+    async makeHttpCall({ baseUrl, body, headers, path }, method = "GET") {
         let headersToSend = new Headers(headers);
         try {
-            let request = await fetch(`${endpoint}/${path}`, {
+            let request = await fetch(`${baseUrl}/${path}`, {
                 body: body,
                 headers: headersToSend,
                 method: method
@@ -16,8 +16,8 @@ class HttpService {
             return this._onError;
         }
     }
-    get({ endpoint, headers, path }) {
-        let response = this.makeHttpCall({ endpoint, headers, path });
+    get({ baseUrl, headers, path }) {
+        let response = this.makeHttpCall({ baseUrl, headers, path });
         return response;
     }
 }

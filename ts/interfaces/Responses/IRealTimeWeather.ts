@@ -1,4 +1,6 @@
-interface IRealTimeWeather {
+import { IForecastWeather } from "./IForecastWeather";
+
+export interface IRealTimeWeather {
   current: {
     cloud: number;
     condition: {
@@ -38,4 +40,5 @@ interface IRealTimeWeather {
     region: string;
     tz_id: string;
   };
+  forecast?: IForecastWeather
 }

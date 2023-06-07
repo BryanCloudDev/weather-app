@@ -1,4 +1,5 @@
 import config from "../config.js";
+import { IRealTimeWeather } from "../interfaces/Responses/IRealTimeWeather";
 import { HttpService } from "./HttpService.js";
 
 class WeatherApiService {
@@ -8,7 +9,7 @@ class WeatherApiService {
 
   private getData( path: string ) {
     let response = this.httpService.get({
-      endpoint: config.weatherBaseUrl,
+      baseUrl: config.weatherBaseUrl,
       headers: {
         "X-RapidAPI-Key": config.weatherApiKey,
       },
@@ -19,11 +20,11 @@ class WeatherApiService {
   }
 
   getRealTimeWeather(city: string): Promise<IRealTimeWeather> {
-    return this.getData(`current.json?q=${city}`);
+    return this.getData(`current.json?q=${ city }`);
   }
 
-  getForeCastWeather( city: string, days: number ) {
-    return this.getData(`current.json?q=${city}`);
+  getForecastWeather(city: string, days: number): Promise<IRealTimeWeather> {
+    return this.getData(`forecast.json?q=${ city }&days=${ days }`);
   }
 }
 
