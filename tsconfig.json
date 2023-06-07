@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "noImplicitAny": false,
+    "noEmitOnError": true,
+    "removeComments": false,
+    "sourceMap": false,
+    "target": "esnext",
+    "module": "esnext",
+    "outDir": "js"
+  },
+  "include": [
+    "ts"
+  ]
+}
