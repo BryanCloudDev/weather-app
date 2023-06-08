@@ -1,12 +1,8 @@
 export interface IForecastWeather {
-  forecast: Forecast
-}
-
-interface Forecast {
   forecastday: Forecastday[]
 }
 
-interface Forecastday {
+export interface Forecastday {
   date: string
   date_epoch: number
   day: Day

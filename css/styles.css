@@ -1,108 +1,138 @@
 :root {
---cloudy:      #3aa1f8;
---day:         #2cc8ef;
---night:       #1a123f;
---nigh-gradient: linear-gradient(0deg, #1a123f 0%, #282665 100%);
---rainy:       #3d85ec;
---snony:       #6dccfd;
---storm:       #7d4cc2;
+	--cloudy: #3aa1f8;
+	--day: #2cc8ef;
+	--night: #1a123f;
+	--nigh-gradient: linear-gradient(0deg, #1a123f 0%, #282665 100%);
+	--rainy: #3d85ec;
+	--snony: #6dccfd;
+	--storm: #7d4cc2;
 }
 
 * {
-  margin: 0px;
+	margin: 0px;
 }
 
-.dayTimeColor{
-  background-color: var(--night);
-  background-image: var(--nigh-gradient);
+.dayTimeColor {
+	background-color: var(--night);
+	background-image: var(--nigh-gradient);
 }
 
 .wrap {
-  align-items: center;
-  color:      #fff;
-  display: flex;
-  font-family: 'Roboto', sans-serif;
-  justify-content: center;
-  min-height:   100vh;
-  width:        100%;
+	align-items: center;
+	color: #fff;
+	display: flex;
+	font-family: "Roboto", sans-serif;
+	justify-content: center;
+	min-height: 100vh;
+	width: 100%;
 }
 
 .main {
-  width: 90%;
-  max-width: 530px;
+	width: 90%;
+	max-width: 530px;
 }
 
 .dataBoxTemperature {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
 }
 
 .inputLocation {
-  border: 1px solid rgba(255,255,255, 0.2);
-  border-radius: 10px;
-  width: 100%;
+	border: 1px solid rgba(255, 255, 255, 0.2);
+	border-radius: 10px;
+	width: 100%;
 }
 
 .inputLocation form {
-  align-items: center;
-  display: flex;
-  justify-content: space-between;
-  padding: 10px;
+	align-items: center;
+	display: flex;
+	justify-content: space-between;
+	padding: 10px;
 }
 
 .search {
-  background: transparent;
-  color: #fff;
-  border: none;
+	background: transparent;
+	color: #fff;
+	border: none;
 }
 
 .fa.fa-search {
-  justify-self: end;
+	justify-self: end;
 }
 
 .inputLocation input {
-  background-color: transparent;
-  border: none;
-  color: inherit;
-  margin-left: 10px;
+	background-color: transparent;
+	border: none;
+	color: inherit;
+	margin-left: 10px;
 }
 
 .inputLocation input:focus {
-  outline: none;
+	outline: none;
 }
 
 .dataBox {
-  align-items: start;
-  display: flex;
-  flex-wrap: nowrap;
-  margin-top: 10px;
-  width: 80%;
+	align-items: start;
+	display: flex;
+	flex-wrap: nowrap;
+	margin-top: 10px;
+	width: 80%;
 }
 
 .dataText {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: baseline;
 }
 .condition {
-  font-size: 30px;
-  width: 100%;
+	font-size: 30px;
+	width: 100%;
 }
 
 .temperatureNumber {
-  font-size: 80px;
+	font-size: 80px;
 }
 
 .condition,
 .date {
-  margin-left: 10px;
+	margin-left: 10px;
 }
 
 .imageContainer {
-  width: 100%;
+	width: 100%;
 }
 
 .imageContainer img {
+	width: 100%;
+}
+
+.forecast {
+	background-color: rgba(255, 255, 255, 0.15);
+	backdrop-filter: blur(5px);
+  border-radius: 10px;
+  margin-top: 20px;
+}
+
+.forecastList {
   width: 100%;
+  padding: 0px;
+  display: inline-block;
+}
+
+.forecastElement {
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px 40px;
+}
+
+.leftContent {
+  display: inherit;
+  align-items: center;
+}
+
+.leftContent img {
+  margin-right: 10px;
 }

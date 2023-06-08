@@ -10,13 +10,10 @@ let inputLocation = document.getElementById("inputLocation");
 let temperature = document.getElementById("temperature");
 let search = document.getElementById("search");
 let imgWeather = document.getElementById("imgWeather");
+let forecastBox = document.getElementById("forecast");
 function convertDate(fecha) {
-    const date = new Date(fecha);
-    const dia = date.getDate().toString().padStart(2, '0');
-    const mes = (date.getMonth() + 1).toString().padStart(2, '0');
-    const hora = date.getHours().toString().padStart(2, '0');
-    const minutos = date.getMinutes().toString().padStart(2, '0');
-    return `${dia}/${mes} ${hora}:${minutos}`;
+    console.log(moment(fecha));
+    return moment(fecha).format('DD/MM HH:mm');
 }
 function setWeatherData(weatherResponse) {
     condition.innerHTML = weatherResponse.current.condition.text;
@@ -26,8 +23,29 @@ function setWeatherData(weatherResponse) {
     imgWeather.alt = weatherResponse.current.condition.text;
 }
 async function makeSearchAndSetFields(search) {
-    let weatherResponse = await weatherApiService.getRealTimeWeather(search);
+    let weatherResponse = await weatherApiService.getForecastWeather(search, 3);
     setWeatherData(weatherResponse);
+    let { forecast } = weatherResponse;
+    console.log(weatherResponse);
+    forecast?.forecastday.forEach(day => {
+        forecastBox.innerHTML += createForecastElement(day);
+    });
+}
+function getDayName(forecastDate) {
+    let dateForecast = moment(forecastDate);
+    let dayForecast = dateForecast.day();
+    let todayDate = moment();
+    let todayDay = todayDate.day();
+    let days = {
+        1: "Monday",
+        2: "Tuesday",
+        3: "Wednesday",
+        4: "Thursday",
+        5: "Friday",
+        6: "Saturday",
+        7: "Sunday"
+    };
+    return todayDay === dayForecast ? "Today" : days[dayForecast];
 }
 // (async () => {
 // 	let { latitude, longitude } = await geolocationService.getUserLocation();
@@ -40,3 +58,18 @@ search.addEventListener('click', async (e) => {
         makeSearchAndSetFields(cleanInputData);
     }
 });
+function createForecastElement({ date, day, }) {
+    let { maxtemp_c, mintemp_c, condition } = day;
+    return `
+	<li class="forecastElement">
+    <div class="leftContent">
+      <img src="${condition.icon}" alt="${condition.text}">
+      <p>${getDayName(date)}</p>
+    </div>
+    <div class="rightContent">
+			<p>
+        <span>${Math.floor(maxtemp_c)}</span>°/<span>${Math.floor(mintemp_c)}</span>°
+      </p>
+    </div>
+  </li>`;
+}
