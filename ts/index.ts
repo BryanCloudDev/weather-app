@@ -1,8 +1,9 @@
-import { Forecastday } from "./interfaces/Responses/IForecastWeather.js";
-import { IRealTimeWeather } from "./interfaces/Responses/IRealTimeWeather.js";
-import { GeoLocationService } from "./services/GeoLocationService.js";
-import { HttpService } from "./services/HttpService.js";
-import { WeatherApiService } from "./services/WeatherApiService.js";
+import moment from "moment";
+import { Forecastday } from "./interfaces/Responses/IForecastWeather";
+import { IRealTimeWeather } from "./interfaces/Responses/IRealTimeWeather";
+import { GeoLocationService } from "./services/GeoLocationService";
+import { HttpService } from "./services/HttpService";
+import { WeatherApiService } from "./services/WeatherApiService";
 
 const httpService = new HttpService();
 const weatherApiService = new WeatherApiService(httpService);
@@ -17,10 +18,7 @@ let imgWeather = document.getElementById("imgWeather") as HTMLImageElement;
 let forecastBox = document.getElementById("forecast") as HTMLElement;
 
 function convertDate(fecha: string): string {
-	// console.log(moment(fecha));
-	// return moment(fecha).format('DD/MM HH:mm');
-	return "a";
-	
+	return moment(fecha).format('DD/MM HH:mm');
 }
 
 function setWeatherData(weatherResponse: IRealTimeWeather) {
@@ -43,23 +41,22 @@ async function makeSearchAndSetFields(search: string) {
 }
 
 function getDayName(forecastDate: string) {
-	// let dateForecast = moment(forecastDate);
-	// let dayForecast = dateForecast.day();
-	// let todayDate = moment();
-	// let todayDay = todayDate.day();
+	let dateForecast = moment(forecastDate);
+	let dayForecast = dateForecast.day();
+	let todayDate = moment();
+	let todayDay = todayDate.day();
 
-	// let days = {
-	// 	1: "Monday",
-	// 	2: "Tuesday",
-	// 	3: "Wednesday",
-	// 	4: "Thursday",
-	// 	5: "Friday",
-	// 	6: "Saturday",
-	// 	7: "Sunday"
-	// };
+	let days = {
+		1: "Monday",
+		2: "Tuesday",
+		3: "Wednesday",
+		4: "Thursday",
+		5: "Friday",
+		6: "Saturday",
+		7: "Sunday"
+	};
 
-	// return todayDay === dayForecast ? "Today" : days[dayForecast];
-	return "a";
+	return todayDay === dayForecast ? "Today" : days[dayForecast];
 }
 
 // (async () => {

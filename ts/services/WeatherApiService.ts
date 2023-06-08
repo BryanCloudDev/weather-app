@@ -1,6 +1,6 @@
-import config from "../config.js";
+import config from "../config";
 import { IRealTimeWeather } from "../interfaces/Responses/IRealTimeWeather";
-import { HttpService } from "./HttpService.js";
+import { HttpService } from "./HttpService";
 
 class WeatherApiService {
   constructor(
