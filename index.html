@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,6 +12,7 @@
   <link rel="stylesheet" href="./css/normalize.css">
   <link rel="stylesheet" href="./css/styles.css">
 </head>
+
 <body>
   <div class="wrap dayTimeColor">
     <main class="main">
@@ -27,20 +29,24 @@
           </form>
         </div>
         <div class="dataBox">
-          <p class="temperatureNumber"><span id="temperature">22</span>°</p>
-          <p class="condition" id="condition">Sunny</p>
-          <p class="date" id="date">28/05</p>
+          <div class="dataText">
+            <p class="temperatureNumber"><span id="temperature">22</span>°</p>
+            <p class="condition" id="condition">Sunny</p>
+            <p class="date" id="date">28/05</p>
+          </div>
+          <img src="//cdn.weatherapi.com/weather/128x128/night/116.png" alt="Foggy" id="imgWeather">
         </div>
       </section>
       <section>
         <div class="imageContainer">
-          <img src="//cdn.weatherapi.com/weather/128x128/night/116.png" alt="">
+
         </div>
       </section>
       <section></section>
     </main>
   </div>
-  <script type="module"  src="./js/index.js"></script>
+  <script type="module" src="./js/index.js"></script>
   <script src="https://use.fontawesome.com/d034c4f984.js"></script>
 </body>
+
 </html>

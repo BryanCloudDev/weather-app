@@ -29,12 +29,13 @@
 
 .main {
   width: 90%;
+  max-width: 530px;
 }
 
 .dataBoxTemperature {
   display: flex;
   flex-wrap: wrap;
-  justify-content: start;
+  justify-content: center;
 }
 
 .inputLocation {
@@ -72,11 +73,23 @@
 }
 
 .dataBox {
-  align-items: baseline;
+  align-items: start;
+  display: flex;
+  flex-wrap: nowrap;
+  margin-top: 10px;
+  width: 80%;
+}
+
+.dataText {
   display: flex;
   flex-wrap: wrap;
-  margin-top: 10px;
+  align-items: baseline;
 }
+.condition {
+  font-size: 30px;
+  width: 100%;
+}
+
 .temperatureNumber {
   font-size: 80px;
 }

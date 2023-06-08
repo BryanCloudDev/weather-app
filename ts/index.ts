@@ -12,6 +12,7 @@ let date = document.getElementById("date") as HTMLElement;
 let inputLocation = document.getElementById("inputLocation") as HTMLInputElement;
 let temperature = document.getElementById("temperature") as HTMLElement;
 let search = document.getElementById("search") as HTMLElement;
+let imgWeather = document.getElementById("imgWeather") as HTMLImageElement;
 
 function convertDate(fecha: string): string {
 	const date = new Date(fecha);
@@ -27,6 +28,8 @@ function setWeatherData(weatherResponse: IRealTimeWeather) {
 	condition.innerHTML = weatherResponse.current.condition.text;
 	date.innerHTML = convertDate(weatherResponse.location.localtime);
 	temperature.innerHTML = Math.floor(weatherResponse.current.temp_c).toString();
+	imgWeather.src = weatherResponse.current.condition.icon.replace("64x64","128x128");
+	imgWeather.alt = weatherResponse.current.condition.text;
 }
 
 async function makeSearchAndSetFields(search: string) {
@@ -34,15 +37,17 @@ async function makeSearchAndSetFields(search: string) {
 	setWeatherData(weatherResponse);
 }
 
-(async () => {
-	let { latitude, longitude } = await geolocationService.getUserLocation();
-	makeSearchAndSetFields(`${latitude}, ${longitude}`)
-})();
+// (async () => {
+// 	let { latitude, longitude } = await geolocationService.getUserLocation();
+// 	makeSearchAndSetFields(`${latitude}, ${longitude}`)
+// })();
 
 search.addEventListener('click', async (e) => {
 	e.preventDefault();
 	let cleanInputData = inputLocation.value.trim();
-	makeSearchAndSetFields(cleanInputData);
+	if (cleanInputData){
+		makeSearchAndSetFields(cleanInputData);
+	}
 })
 
 
