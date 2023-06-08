@@ -1,11 +1,11 @@
 :root {
-	--cloudy: #3aa1f8;
+	/* --cloudy: #3aa1f8; */
 	--day: #2cc8ef;
-	--night: #1a123f;
+	/* --night: #1a123f;
 	--nigh-gradient: linear-gradient(0deg, #1a123f 0%, #282665 100%);
 	--rainy: #3d85ec;
 	--snony: #6dccfd;
-	--storm: #7d4cc2;
+	--storm: #7d4cc2; */
 }
 
 * {
@@ -13,8 +13,7 @@
 }
 
 .dayTimeColor {
-	background-color: var(--night);
-	background-image: var(--nigh-gradient);
+	background-color: var(--day);
 }
 
 .wrap {
