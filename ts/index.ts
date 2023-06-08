@@ -11,12 +11,14 @@ const geolocationService = new GeoLocationService();
 
 let condition = document.getElementById("condition") as HTMLElement;
 let date = document.getElementById("date") as HTMLElement;
-let inputLocation = document.getElementById("inputLocation") as HTMLInputElement;
-let temperature = document.getElementById("temperature") as HTMLElement;
-let search = document.getElementById("search") as HTMLElement;
-let imgWeather = document.getElementById("imgWeather") as HTMLImageElement;
-let forecastBox = document.getElementById("forecast") as HTMLElement;
 let dayTimeColorBox = document.getElementById("dayTimeColor") as HTMLElement;
+let forecastBox = document.getElementById("forecast") as HTMLElement;
+let imgWeather = document.getElementById("imgWeather") as HTMLImageElement;
+let inputLocation = document.getElementById("inputLocation") as HTMLInputElement;
+let search = document.getElementById("search") as HTMLElement;
+let dataText = document.querySelector(".dataText") as HTMLElement;
+let temperature = document.getElementById("temperature") as HTMLElement;
+let weatherImg = document.querySelector(".weatherImg") as HTMLElement;
 
 function convertDate(fecha: string): string {
 	return moment(fecha).format('DD/MM hh:mm A');
@@ -82,6 +84,20 @@ function setWeatherData(weatherResponse: IRealTimeWeather) {
 	imgWeather.alt = weatherResponse.current.condition.text;
 }
 
+function setAnimationsToFields(weatherResponse: IRealTimeWeather) {
+	forecastBox.classList.add('animate__animated', 'animate__backInUp');
+	dayTimeColorBox.style.backgroundColor = getBackgroundColor(weatherResponse.current.condition.code);
+	dataText.classList.add('animate__animated', 'animate__pulse');
+	weatherImg.classList.add('animate__animated', 'animate__pulse');
+
+	setTimeout(() => {
+		forecastBox.classList.remove('animate__animated', 'animate__backInUp');
+		dayTimeColorBox.style.backgroundColor = getBackgroundColor(weatherResponse.current.condition.code);
+		dataText.classList.remove('animate__animated', 'animate__pulse');
+		weatherImg.classList.remove('animate__animated', 'animate__pulse');
+	}, 2000);
+}
+
 async function makeSearchAndSetFields(search: string) {
 	let weatherResponse = await weatherApiService.getForecastWeather(search,3);
 	setWeatherData(weatherResponse);
@@ -92,7 +108,7 @@ async function makeSearchAndSetFields(search: string) {
 		forecastBox.innerHTML += createForecastElement(day);
 	})
 
-	dayTimeColorBox.style.backgroundColor = getBackgroundColor(weatherResponse.current.condition.code);
+	setAnimationsToFields(weatherResponse);
 }
 
 function getDayName(forecastDate: string) {
@@ -114,20 +130,6 @@ function getDayName(forecastDate: string) {
 	return todayDay === dayForecast ? "Today" : days[dayForecast];
 }
 
-// (async () => {
-// 	let { latitude, longitude } = await geolocationService.getUserLocation();
-// 	makeSearchAndSetFields(`${latitude}, ${longitude}`)
-// })();
-
-search.addEventListener('click', async (e) => {
-	forecastBox.innerHTML = '';
-	e.preventDefault();
-	let cleanInputData = inputLocation.value.trim();
-	if (cleanInputData){
-		makeSearchAndSetFields(cleanInputData);
-	}
-})
-
 function createForecastElement({ date, day, }: Forecastday) {
 	let { maxtemp_c, mintemp_c, condition } = day;
 	return `
@@ -143,6 +145,20 @@ function createForecastElement({ date, day, }: Forecastday) {
     </div>
   </li>`
 }
+
+// (async () => {
+// 	let { latitude, longitude } = await geolocationService.getUserLocation();
+// 	makeSearchAndSetFields(`${latitude}, ${longitude}`)
+// })();
+
+search.addEventListener('click', async (e) => {
+	forecastBox.innerHTML = '';
+	e.preventDefault();
+	let cleanInputData = inputLocation.value.trim();
+	if (cleanInputData){
+		makeSearchAndSetFields(cleanInputData);
+	}
+})
 
 
 
