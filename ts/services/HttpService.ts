@@ -16,7 +16,7 @@ class HttpService {
 
       return data;
 
-    } catch (error) {
+    } catch (error: any) {
       console.log(error.message);
       return this._onError;
     }

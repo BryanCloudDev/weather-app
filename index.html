@@ -17,14 +17,19 @@
       <section class="dataBoxTemperature">
         <div class="inputLocation">
           <form action="">
-            <input type="text" value="Santa Tecla">
-            <i class="fa fa-map-marker" aria-hidden="true"></i>
+            <div>
+              <i class="fa fa-map-marker" aria-hidden="true"></i>
+              <input type="text" value="Santa Tecla" id="inputLocation">
+            </div>
+            <button class="search" id="search">
+              <i class="fa fa-search" aria-hidden="true"></i>
+            </button>
           </form>
         </div>
         <div class="dataBox">
-          <p class="temperatureNumber">22°</p>
-          <p class="condition">Sunny</p>
-          <p class="date">28/05</p>
+          <p class="temperatureNumber"><span id="temperature">22</span>°</p>
+          <p class="condition" id="condition">Sunny</p>
+          <p class="date" id="date">28/05</p>
         </div>
       </section>
       <section>

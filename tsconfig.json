@@ -3,9 +3,13 @@
     "noImplicitAny": false,
     "noEmitOnError": true,
     "removeComments": false,
+    "moduleResolution": "nodenext",
+    "resolveJsonModule": true,
     "sourceMap": false,
     "target": "esnext",
     "module": "esnext",
+    "esModuleInterop": true,
+    "strict": true,
     "outDir": "js"
   },
   "include": [

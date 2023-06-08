@@ -50,10 +50,21 @@
   padding: 10px;
 }
 
+.search {
+  background: transparent;
+  color: #fff;
+  border: none;
+}
+
+.fa.fa-search {
+  justify-self: end;
+}
+
 .inputLocation input {
   background-color: transparent;
   border: none;
   color: inherit;
+  margin-left: 10px;
 }
 
 .inputLocation input:focus {
