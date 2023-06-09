@@ -1,15 +1,10 @@
 :root {
-	/* --cloudy: #3aa1f8; */
 	--day: #2cc8ef;
-	/* --night: #1a123f;
-	--nigh-gradient: linear-gradient(0deg, #1a123f 0%, #282665 100%);
-	--rainy: #3d85ec;
-	--snony: #6dccfd;
-	--storm: #7d4cc2; */
 }
 
 * {
 	margin: 0px;
+	box-sizing: border-box;
 }
 
 .dayTimeColor {
@@ -20,12 +15,20 @@
 	align-items: center;
 	color: #fff;
 	display: flex;
+	align-content: space-between;
+	flex-wrap: wrap;
 	font-family: "Roboto", sans-serif;
 	justify-content: center;
 	min-height: 100vh;
 	width: 100%;
 }
 
+.header {
+	margin-top: 30px;
+}
+
+.footer,
+.header,
 .main {
 	width: 90%;
 	max-width: 530px;
@@ -41,6 +44,13 @@
 	border: 1px solid rgba(255, 255, 255, 0.2);
 	border-radius: 10px;
 	width: 100%;
+}
+
+.headerBox {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 10px;
 }
 
 .inputLocation form {
@@ -106,6 +116,7 @@
 	width: 100%;
 }
 
+.header,
 .forecast {
 	background-color: rgba(255, 255, 255, 0.15);
 	backdrop-filter: blur(5px);
@@ -134,4 +145,10 @@
 
 .leftContent img {
   margin-right: 10px;
+}
+
+.footer {
+	margin-bottom: 30px;
+	display: flex;
+	justify-content: space-between;
 }

@@ -19,6 +19,7 @@ let search = document.getElementById("search") as HTMLElement;
 let dataText = document.querySelector(".dataText") as HTMLElement;
 let temperature = document.getElementById("temperature") as HTMLElement;
 let weatherImg = document.querySelector(".weatherImg") as HTMLElement;
+let dateCreated = document.getElementById("dateCreated") as HTMLElement;
 
 function convertDate(fecha: string): string {
 	return moment(fecha).format('DD/MM hh:mm A');
@@ -146,10 +147,11 @@ function createForecastElement({ date, day, }: Forecastday) {
   </li>`
 }
 
-// (async () => {
-// 	let { latitude, longitude } = await geolocationService.getUserLocation();
-// 	makeSearchAndSetFields(`${latitude}, ${longitude}`)
-// })();
+(async () => {
+	// let { latitude, longitude } = await geolocationService.getUserLocation();
+	// makeSearchAndSetFields(`${latitude}, ${longitude}`)
+	dateCreated.innerHTML = moment().format("YYYY");
+})();
 
 search.addEventListener('click', async (e) => {
 	forecastBox.innerHTML = '';
