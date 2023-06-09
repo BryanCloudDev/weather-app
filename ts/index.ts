@@ -6,21 +6,21 @@ import { HttpService } from "./services/HttpService";
 import { WeatherApiService } from "./services/WeatherApiService";
 import { convertDate, getDayName, showErrorMessage } from '../helpers/helpers';
 
+let alertBox = document.getElementById("alert") as HTMLElement;
 let condition = document.getElementById("condition") as HTMLElement;
+let dataText = document.querySelector(".dataText") as HTMLElement;
 let date = document.getElementById("date") as HTMLElement;
+let dateCreated = document.getElementById("dateCreated") as HTMLElement;
 let dayTimeColorBox = document.getElementById("dayTimeColor") as HTMLElement;
 let forecastBox = document.getElementById("forecast") as HTMLElement;
+let getWeatherButton = document.getElementById("getWeather") as HTMLElement;
 let imgWeather = document.getElementById("imgWeather") as HTMLImageElement;
 let inputLocation = document.getElementById("inputLocation") as HTMLInputElement;
+let loadingIcon = document.querySelector(".spinner") as HTMLElement;
 let search = document.getElementById("search") as HTMLElement;
-let dataText = document.querySelector(".dataText") as HTMLElement;
+let searchIcon = document.querySelector(".searchIcon") as HTMLElement;
 let temperature = document.getElementById("temperature") as HTMLElement;
 let weatherImg = document.querySelector(".weatherImg") as HTMLElement;
-let dateCreated = document.getElementById("dateCreated") as HTMLElement;
-let getWeatherButton = document.getElementById("getWeather") as HTMLElement;
-let alertBox = document.getElementById("alert") as HTMLElement;
-let searchIcon = document.querySelector(".searchIcon") as HTMLElement;
-let loadingIcon = document.querySelector(".spinner") as HTMLElement;
 
 function getBackgroundColor(code: number) {
 	let color1 = "#6ccbfc";
@@ -96,11 +96,22 @@ function setAnimationsToFields(weatherResponse: IRealTimeWeather) {
 	}, 2000);
 }
 
-async function makeSearchAndSetFields(searchQuery: string) {
-	search.removeEventListener('click', searchCallback);
+function toggleLoadingIcons() {
 	searchIcon.classList.toggle('disabled');
 	loadingIcon.classList.toggle('disabled');
-	let weatherResponse = await weatherApiService.getForecastWeather(searchQuery,3);
+}
+
+async function makeSearchAndSetFields(searchQuery: string) {
+	search.removeEventListener('click', searchCallback);
+	toggleLoadingIcons();
+
+	let weatherResponse = await weatherApiService.getForecastWeather(searchQuery, 3);
+
+	if(weatherResponse.error){
+		showErrorMessage(weatherResponse.error, alertBox);
+		return;
+	}
+
 	setWeatherData(weatherResponse);
 
 	let { forecast } = weatherResponse;
@@ -111,8 +122,8 @@ async function makeSearchAndSetFields(searchQuery: string) {
 
 	setAnimationsToFields(weatherResponse);
 	search.addEventListener('click', searchCallback);
-	searchIcon.classList.toggle('disabled');
-	loadingIcon.classList.toggle('disabled');
+
+	toggleLoadingIcons();
 }
 
 async function searchCallback( e: Event ) {

@@ -14,6 +14,12 @@ class HttpService {
 
       let data = await request.json();
 
+      if(!request.ok) {
+        return {
+          error: data.error.message
+        }
+      }
+
       return data;
 
     } catch (error: any) {

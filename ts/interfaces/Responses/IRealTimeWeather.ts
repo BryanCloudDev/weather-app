@@ -40,5 +40,6 @@ export interface IRealTimeWeather {
     region: string;
     tz_id: string;
   };
-  forecast?: IForecastWeather
+  forecast?: IForecastWeather;
+  error?: string;
 }
