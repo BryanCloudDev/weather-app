@@ -24,7 +24,10 @@ class GeoLocationService {
       }
     }
 
-    throw Error("Ubicacion no proporcionada")
+    return {
+      latitude: 0,
+      longitude: 0
+    }
   }
 }
 

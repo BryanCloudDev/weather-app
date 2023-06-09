@@ -11,27 +11,42 @@
 	background-color: var(--day);
 }
 
+.searchIcon.disabled,
+.spinner.disabled,
+.disabled {
+	display: none;
+}
+
 .wrap {
-	align-items: center;
 	color: #fff;
 	display: flex;
-	align-content: space-between;
-	flex-wrap: wrap;
-	font-family: "Roboto", sans-serif;
 	justify-content: center;
+	font-family: "Roboto", sans-serif;
 	min-height: 100vh;
 	width: 100%;
 }
 
-.header {
-	margin-top: 30px;
+.container {
+	width: 90%;
+	max-width: 800px;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: center;
+	align-content: space-between;
 }
 
-.footer,
 .header,
-.main {
-	width: 90%;
-	max-width: 530px;
+.main,
+.footer {
+	width: 100%;
+}
+
+.alert {
+	margin-top: 20px;
+	background-color: #48d64f;
+	padding: 30px;
+	border-radius: 10px;
 }
 
 .dataBoxTemperature {
@@ -44,6 +59,19 @@
 	border: 1px solid rgba(255, 255, 255, 0.2);
 	border-radius: 10px;
 	width: 100%;
+}
+
+.spinner {
+	animation: rotate 2s infinite linear;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 .headerBox {
@@ -116,7 +144,7 @@
 	width: 100%;
 }
 
-.header,
+.headerBox,
 .forecast {
 	background-color: rgba(255, 255, 255, 0.15);
 	backdrop-filter: blur(5px);

@@ -4,10 +4,7 @@ import { IRealTimeWeather } from "./interfaces/Responses/IRealTimeWeather";
 import { GeoLocationService } from "./services/GeoLocationService";
 import { HttpService } from "./services/HttpService";
 import { WeatherApiService } from "./services/WeatherApiService";
-
-const httpService = new HttpService();
-const weatherApiService = new WeatherApiService(httpService);
-const geolocationService = new GeoLocationService();
+import { convertDate, getDayName, showErrorMessage } from '../helpers/helpers';
 
 let condition = document.getElementById("condition") as HTMLElement;
 let date = document.getElementById("date") as HTMLElement;
@@ -20,10 +17,10 @@ let dataText = document.querySelector(".dataText") as HTMLElement;
 let temperature = document.getElementById("temperature") as HTMLElement;
 let weatherImg = document.querySelector(".weatherImg") as HTMLElement;
 let dateCreated = document.getElementById("dateCreated") as HTMLElement;
-
-function convertDate(fecha: string): string {
-	return moment(fecha).format('DD/MM hh:mm A');
-}
+let getWeatherButton = document.getElementById("getWeather") as HTMLElement;
+let alertBox = document.getElementById("alert") as HTMLElement;
+let searchIcon = document.querySelector(".searchIcon") as HTMLElement;
+let loadingIcon = document.querySelector(".spinner") as HTMLElement;
 
 function getBackgroundColor(code: number) {
 	let color1 = "#6ccbfc";
@@ -99,8 +96,11 @@ function setAnimationsToFields(weatherResponse: IRealTimeWeather) {
 	}, 2000);
 }
 
-async function makeSearchAndSetFields(search: string) {
-	let weatherResponse = await weatherApiService.getForecastWeather(search,3);
+async function makeSearchAndSetFields(searchQuery: string) {
+	search.removeEventListener('click', searchCallback);
+	searchIcon.classList.toggle('disabled');
+	loadingIcon.classList.toggle('disabled');
+	let weatherResponse = await weatherApiService.getForecastWeather(searchQuery,3);
 	setWeatherData(weatherResponse);
 
 	let { forecast } = weatherResponse;
@@ -110,25 +110,23 @@ async function makeSearchAndSetFields(search: string) {
 	})
 
 	setAnimationsToFields(weatherResponse);
+	search.addEventListener('click', searchCallback);
+	searchIcon.classList.toggle('disabled');
+	loadingIcon.classList.toggle('disabled');
 }
 
-function getDayName(forecastDate: string) {
-	let dateForecast = moment(forecastDate);
-	let dayForecast = dateForecast.day();
-	let todayDate = moment();
-	let todayDay = todayDate.day();
+async function searchCallback( e: Event ) {
+	forecastBox.innerHTML = '';
+	e.preventDefault();
 
-	let days = [
-		"Monday",
-		"Tuesday",
-		"Wednesday",
-		"Thursday",
-		"Friday",
-		"Saturday",
-		"Sunday"
-	];
+	let cleanInputData = inputLocation.value.trim();
+	let isDataValid = validateDataFromInput(cleanInputData);
 
-	return todayDay === dayForecast ? "Today" : days[dayForecast];
+	if (!cleanInputData || !isDataValid) {
+		showErrorMessage("A valid location has to be entered.", alertBox);
+		return;
+	};
+	makeSearchAndSetFields(cleanInputData);
 }
 
 function createForecastElement({ date, day, }: Forecastday) {
@@ -147,21 +145,29 @@ function createForecastElement({ date, day, }: Forecastday) {
   </li>`
 }
 
-(async () => {
-	// let { latitude, longitude } = await geolocationService.getUserLocation();
-	// makeSearchAndSetFields(`${latitude}, ${longitude}`)
+function validateDataFromInput( value: string ) {
+	const regex = /^[a-zA-Z\sñáéíóúÑÁÉÍÓÚ]+$/;
+	return regex.test(value);
+}
+
+const httpService = new HttpService();
+const weatherApiService = new WeatherApiService(httpService);
+const geolocationService = new GeoLocationService();
+
+(() => {
 	dateCreated.innerHTML = moment().format("YYYY");
 })();
 
-search.addEventListener('click', async (e) => {
-	forecastBox.innerHTML = '';
+search.addEventListener('click', searchCallback);
+
+getWeatherButton.addEventListener('click', async e => {
 	e.preventDefault();
-	let cleanInputData = inputLocation.value.trim();
-	if (cleanInputData){
-		makeSearchAndSetFields(cleanInputData);
+
+	let { latitude, longitude } = await geolocationService.getUserLocation();
+
+	if(!latitude){
+		showErrorMessage("No permission was given to get the weather on your area, you may type on the text box the desired location you want to check", alertBox);
+		return;
 	}
+	makeSearchAndSetFields(`${latitude}, ${longitude}`);
 })
-
-
-
-
